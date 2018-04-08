@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "word_count.h"
 
-TEST(Test1, UnitTest) {
+TEST(Test_tmh, UnitTest) {
   // test function: word_count
   auto wm = WC::WordMap{};
   EXPECT_EQ(wm, word_count(""));
