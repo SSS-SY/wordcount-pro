@@ -14,23 +14,23 @@ class WC {
   typedef std::unordered_map<std::string, int> WordMap;
 
   explicit WC(const char* filename)
-      : _fp(std::fopen(filename, "r")), _pool(10) {}
+      : _fp(std::fopen(filename, "r")), _pool(10) {
+    if (_fp) {
+      std::fseek(_fp, 0, std::SEEK_END);
+      _file_length = std::ftell(_fp);
+      std::fseek(_fp, 0, std::SEEK_SET);
+    }
+  }
 
   ~WC() { std::fclose(_fp); }
 
   WordSet simple_count();
 
+  int file_length() { return _file_length; }
+
  private:
-  int file_length() {
-    fseek(_fp, 0, SEEK_SET);
-    fseek(_fp, 0, SEEK_END);
-    int ret = ftell(_fp);
-    fseek(_fp, 0, SEEK_SET);
-
-    return ret;
-  }
-
   std::FILE* _fp;
+  int _file_length;
   ThreadPool _pool;
 };
 

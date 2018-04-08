@@ -10,6 +10,9 @@
 using namespace std;
 
 WC::WordSet WC::simple_count() {
+  if (!_fp) {
+    return {};
+  }
   int size = file_length();
   char* buff = new (nothrow) char[size + 1];
   if (!buff) {
